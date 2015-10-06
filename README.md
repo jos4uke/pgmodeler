@@ -47,9 +47,10 @@ boot2docker up
 
 ```
 # set in bash_profile.common
-vim /Users/josse/.bash_profile.common
+vim .bashrc 
 
 // ...
+# add these lines
     export DOCKER_HOST=tcp://192.168.59.103:2376
     export DOCKER_CERT_PATH=/Users/josse/.boot2docker/certs/boot2docker-vm
     export DOCKER_TLS_VERIFY=1
@@ -79,10 +80,6 @@ boot2docker ip
 
 ```
 # create dockerfile
-cd devel/
-rsync template_to_copy_and_adapt Docker
-cd Docker/
-cd projects/
 mkdir pgmodeler
 cd pgmodeler/
 touch Dockerfile
@@ -116,12 +113,16 @@ RUN wget https://github.com/pgmodeler/pgmodeler/archive/v0.8.1.tar.gz && \
 RUN cd /usr/local/src/pgmodeler/pgmodeler-0.8.1/ && qmake pgmodeler.pro && make && make install
 
 # starter script and env vars file
-RUN cp /usr/local/src/pgmodeler/pgmodeler-0.8.1/start-pgmodeler.sh /usr/local/bin/. chmod +x  /usr/local/bin/start-pgmodeler.sh
+RUN cp /usr/local/src/pgmodeler/pgmodeler-0.8.1/start-pgmodeler.sh /usr/local/bin/. && chmod +x /usr/local/bin/start-pgmodeler.sh
 RUN cp /usr/local/src/pgmodeler/pgmodeler-0.8.1/pgmodeler.vars /. && ln -s /pgmodeler.vars /usr/local/bin/pgmodeler.vars
 
 # put a startup script in /etc/rc2.d
+# useless because container runlevel is unknown instead of 2 
 ADD startup_pgmodeler.sh /etc/init.d/
 RUN ln -s  /etc/init.d/startup_pgmodeler.sh /etc/rc2.d/S99startup_pgmodeler.sh
+
+# run pgmodeler
+CMD start-pgmodeler.sh
 
 // ...
 
