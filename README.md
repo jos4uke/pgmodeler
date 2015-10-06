@@ -213,17 +213,30 @@ ubuntu               trusty              91e54dfb1179        6 weeks ago        
 
 ##### redirect the display from VM to OSX
 
+Solution 1:
+
 ```
 # install socat in osx
 > brew install socat
-
+ 
 # configure socat redirection
 > socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"
 
+# from another terminal, run pgmodeler container
+# IP 192.168.59.3 is the OSX IP in the Virtualbox local net
+> docker run -it -e DISPLAY=192.168.59.3:0 jtran/pgmodeler:v1
+
+```
+
+Solution 2:
+
+```
 ## [alternative: use X11-unix socket](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/)
+## $DISPLAY refers to the X11/XQuartz display on OSX 
 > docker run -ti --rm \
        -e DISPLAY=$DISPLAY \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
 	jtran/pgmodeler:v1
 	
+
 ```
