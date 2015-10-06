@@ -1,0 +1,10 @@
+prefix=/usr
+libdir=${prefix}/lib/postgresql/[VERSION]/lib
+includedir=${prefix}/include/postgresql
+
+Name: LibPQ
+Version: 5.0.0
+Description: PostgreSQL client library
+Requires:
+Libs: -L${libdir}/libpq.so -lpq
+Cflags: -I${includedir}
