@@ -25,8 +25,8 @@ RUN wget https://github.com/pgmodeler/pgmodeler/archive/v0.8.1.tar.gz && \
 RUN cd /usr/local/src/pgmodeler/pgmodeler-0.8.1/ && qmake pgmodeler.pro && make && make install
 
 # starter script and env vars file
-RUN cp /usr/local/src/pgmodeler/pgmodeler-0.8.1/start-pgmodeler.sh /usr/local/bin/.
-RUN cp /usr/local/src/pgmodeler/pgmodeler-0.8.1/pgmodeler.vars /.
+RUN cp /usr/local/src/pgmodeler/pgmodeler-0.8.1/start-pgmodeler.sh /usr/local/bin/. chmod +x  /usr/local/bin/start-pgmodeler.sh
+RUN cp /usr/local/src/pgmodeler/pgmodeler-0.8.1/pgmodeler.vars /. && ln -s /pgmodeler.vars /usr/local/bin/pgmodeler.vars
 
 # put a startup script in /etc/rc2.d
 # useless because container runlevel is unknown instead of 2 
