@@ -225,7 +225,7 @@ Solution 1:
 
 # from another terminal, run pgmodeler container
 # IP 192.168.59.3 is the OSX IP in the Virtualbox local net
-> docker run -it -e DISPLAY=192.168.59.3:0 jtran/pgmodeler:v1
+> docker run -it -e DISPLAY=192.168.59.3:0 jtran/pgmodeler:v1 start-pgmodeler.sh
 
 ```
 
@@ -237,7 +237,7 @@ Solution 2:
 > docker run -ti --rm \
        -e DISPLAY=$DISPLAY \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
-	jtran/pgmodeler:v1
+	jtran/pgmodeler:v1 start-pgmodeler.sh
 	
 
 ```
