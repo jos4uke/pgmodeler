@@ -122,10 +122,15 @@ ADD startup_pgmodeler.sh /etc/init.d/
 RUN ln -s  /etc/init.d/startup_pgmodeler.sh /etc/rc2.d/S99startup_pgmodeler.sh
 
 # run pgmodeler
-CMD start-pgmodeler.sh
+#CMD start-pgmodeler.sh
 
 // ...
 
+```
+
+#### Create libpq.pc file
+
+```
 # create libpq.pc file
 touch libpq.pc
 vim libpq.pc
@@ -143,6 +148,11 @@ Libs: -L${libdir}/libpq.so -lpq
 Cflags: -I${includedir}
 // ...
 
+```
+
+#### Create a starter script
+
+```
 # create a startup script
 ## NB: this script will only be launched in graphical level 2
 ## but the container is not booted in this level (% runlevel command => unknown)
